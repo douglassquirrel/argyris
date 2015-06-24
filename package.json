@@ -1,0 +1,11 @@
+{
+  "name": "argyris",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "./node_modules/.bin/nodeunit test"
+  },
+  "dependencies": {
+    "nlp_compromise": "~1.1.2",
+    "nodeunit": "~0.9.1"
+  }
+}
