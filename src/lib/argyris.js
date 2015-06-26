@@ -6,3 +6,7 @@ SemanticUnit = function(text) {
 SemanticUnit.prototype.toString = function() {
     return this.text;
 }
+
+SemanticUnit.prototype.getConstituents = function() {
+    return [];
+}
