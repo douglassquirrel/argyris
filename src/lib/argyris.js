@@ -1,21 +1,13 @@
 #!/usr/bin/env node
 
-var sentenceToUnits = function(text) {
-    words = text.split(/[ ]+/);
-    return words.map(function(word) { return new SemanticUnit(word); });
-}
-
-var isWord = function(text) {
-    return text.indexOf(' ') < 0;
-}
-
 SemanticUnit = function(text) {
     this.text = text;
-    this.attributes = [];
     if (isWord(this.text)) {
         this.constituents = [];
+        this.attributes = [];
     } else {
         this.constituents = sentenceToUnits(this.text);
+        this.attributes = [sentenceType(this.text)];
     }
 };
 
@@ -42,3 +34,20 @@ SemanticUnit.prototype.getAttributes = function() {
 SemanticUnit.prototype.recordAttribute = function(attribute) {
     this.attributes.push(attribute);
 };
+
+var sentenceToUnits = function(text) {
+    var words = text.split(/[ ]+/);
+    return words.map(function(word) { return new SemanticUnit(word); });
+}
+
+var isWord = function(text) {
+    return text.indexOf(' ') < 0;
+}
+
+var sentenceType = function(text) {
+    var puncMapping = {".": "statement",
+                       "?": "question",
+                       "!": "exclamation"};
+    var punc = text.slice(-1);
+    return puncMapping[punc] || "statement";
+}

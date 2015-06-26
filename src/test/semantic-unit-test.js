@@ -45,17 +45,33 @@ exports.testShouldIdentifyWordsAndSentences = function(test) {
     test.done();
 };
 
-exports.testAUnitShouldHaveNoAttributesToStart = function(test) {
-    test.expect(1)
-    var unit = newUnit();
-    var attributes = unit.getAttributes();
+exports.testAWordShouldHaveNoAttributesToStart = function(test) {
+    test.expect(1);
+    var word = newUnit("flower");
+    var attributes = word.getAttributes();
     test.strictEqual(attributes.length, 0,
-                     "New unit should have no attributes");
+                     "New word should have no attributes");
+    test.done();
+};
+
+exports.testASentenceShouldHaveATypeToStart = function(test) {
+    var checkSentenceType = function(text, expectedType) {
+        var sentence = newUnit(text);
+        var attributes = sentence.getAttributes();
+        test.deepEqual([expectedType], attributes,
+                       "New sentence should have correct type attribute");
+    };
+
+    test.expect(4);
+    checkSentenceType("This is not a pipe.", "statement");
+    checkSentenceType("Is this a pipe?",     "question");
+    checkSentenceType("Wow, a pipe!",        "exclamation");
+    checkSentenceType("lol a pipe wowz",     "statement");
     test.done();
 };
 
 exports.testAUnitShouldAcceptNewAttributes = function(test) {
-    test.expect(1)
+    test.expect(1);
     var unit = newUnit("sad");
     unit.recordAttribute("emotion");
     unit.recordAttribute("adjective");
