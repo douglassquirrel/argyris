@@ -16,7 +16,7 @@ SemanticUnit.prototype.toString = function() {
 };
 
 SemanticUnit.prototype.getConstituents = function() {
-    return [];
+    return this.constituents;
 };
 
 SemanticUnit.prototype.isWord = function() {

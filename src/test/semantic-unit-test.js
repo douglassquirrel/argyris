@@ -30,6 +30,17 @@ exports.testAWordShouldHaveNoConstituents = function(test) {
     test.done();
 };
 
+exports.testASentenceShouldHaveWordsAsConstituents = function(test) {
+    test.expect(2);
+    var sentence = newUnit("Not the comfy chair!");
+    var constituents = sentence.getConstituents();
+    test.strictEqual(constituents.length, 4,
+                     "Sentence should have all its words as constituents");
+    test.strictEqual(constituents.every(function(u) { return u.isWord(); }),
+                     true, "All sentence constituents should be words");
+    test.done();
+};
+
 exports.testShouldIdentifyWordsAndSentences = function(test) {
     test.expect(4);
     var word = newUnit("grass");
