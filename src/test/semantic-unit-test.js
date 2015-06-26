@@ -15,7 +15,7 @@ exports.testShouldRepresentAWord = function(test) {
 
 exports.testShouldRepresentASentence = function(test) {
     test.expect(1);
-    var sentence = new SemanticUnit("How are you feeling?");
+    var sentence = newUnit("How are you feeling?");
     test.strictEqual(sentence.toString(), "How are you feeling?",
                      "Sentence not represented");
     test.done();
@@ -27,6 +27,17 @@ exports.testAWordShouldHaveNoConstituents = function(test) {
     var constituents = word.getConstituents();
     test.strictEqual(constituents.length, 0,
                      "Word should not have constituents");
+    test.done();
+};
+
+exports.testShouldIdentifyWords = function(test) {
+    test.expect(2);
+    var word = newUnit("grass");
+    var sentence = newUnit("The grass is green.");
+    test.strictEqual(word.isWord(), true,
+                     "Words should be identified as such");
+    test.strictEqual(sentence.isWord(), false,
+                     "Sentences should not be identified as words");
     test.done();
 };
 
