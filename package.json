@@ -1,11 +1,25 @@
 {
   "name": "argyris",
   "version": "0.0.1",
+  "description": "Analyses case study text using techniques due to Argyris.",
+  "homepage": "https://github.com/douglassquirrel/argyris",
+  "author": {
+      "name": "Douglas Squirrel",
+      "email": "ds@douglassquirrel.com",
+      "url": "http://douglassquirrel.com"
+  },
+  "license": "MIT",
   "scripts": {
-    "test": "./node_modules/.bin/nodeunit test"
+      "test": "./node_modules/.bin/nodeunit test"
   },
   "dependencies": {
-    "nlp_compromise": "~1.1.2",
-    "nodeunit": "~0.9.1"
+      "nlp_compromise": "~1.1.2"
+  },
+  "devDependencies": {
+      "nodeunit": "~0.9.1"
+  },
+  "repository" : {
+      "type" : "git",
+      "url" : "https://github.com/douglassquirrel/argyris.git"
   }
 }
