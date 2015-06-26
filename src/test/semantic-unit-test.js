@@ -1,21 +1,29 @@
 #!/usr/bin/env node
 require("../lib/argyris");
 
-function newWord(text) {
+function newUnit(text) {
     if (typeof(text)==='undefined') text = "testword";
     return new SemanticUnit(text);
 };
 
 exports.testShouldRepresentAWord = function(test) {
     test.expect(1);
-    var blue = newWord("blue");
+    var blue = newUnit("blue");
     test.strictEqual(blue.toString(), "blue", "Word not represented");
+    test.done();
+};
+
+exports.testShouldRepresentASentence = function(test) {
+    test.expect(1);
+    var sentence = new SemanticUnit("How are you feeling?");
+    test.strictEqual(sentence.toString(), "How are you feeling?",
+                     "Sentence not represented");
     test.done();
 };
 
 exports.testAWordShouldHaveNoConstituents = function(test) {
     test.expect(1);
-    var word = newWord();
+    var word = newUnit("river");
     var constituents = word.getConstituents();
     test.strictEqual(constituents.length, 0,
                      "Word should not have constituents");
@@ -24,8 +32,8 @@ exports.testAWordShouldHaveNoConstituents = function(test) {
 
 exports.testAUnitShouldHaveNoAttributesToStart = function(test) {
     test.expect(1)
-    var word = newWord();
-    var attributes = word.getAttributes();
+    var unit = newUnit();
+    var attributes = unit.getAttributes();
     test.strictEqual(attributes.length, 0,
                      "New unit should have no attributes");
     test.done();
@@ -33,12 +41,12 @@ exports.testAUnitShouldHaveNoAttributesToStart = function(test) {
 
 exports.testAUnitShouldAcceptNewAttributes = function(test) {
     test.expect(1)
-    var river = newWord("river");
-    river.recordAttribute("wet");
-    river.recordAttribute("meandering");
-    var attributes = river.getAttributes();
+    var unit = newUnit("sad");
+    unit.recordAttribute("emotion");
+    unit.recordAttribute("adjective");
+    var attributes = unit.getAttributes();
     attributes.sort();
-    test.deepEqual(attributes, ["meandering", "wet"],
+    test.deepEqual(attributes, ["adjective", "emotion"],
                    "Unit should record attributes");
     test.done();
 };
