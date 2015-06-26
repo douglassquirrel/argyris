@@ -30,14 +30,18 @@ exports.testAWordShouldHaveNoConstituents = function(test) {
     test.done();
 };
 
-exports.testShouldIdentifyWords = function(test) {
-    test.expect(2);
+exports.testShouldIdentifyWordsAndSentences = function(test) {
+    test.expect(4);
     var word = newUnit("grass");
     var sentence = newUnit("The grass is green.");
     test.strictEqual(word.isWord(), true,
                      "Words should be identified as such");
     test.strictEqual(sentence.isWord(), false,
                      "Sentences should not be identified as words");
+    test.strictEqual(word.isSentence(), false,
+                     "Words should not be identified as sentences");
+    test.strictEqual(sentence.isSentence(), true,
+                     "Sentences should be identified as such");
     test.done();
 };
 

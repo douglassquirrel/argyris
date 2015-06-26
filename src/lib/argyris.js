@@ -31,6 +31,10 @@ SemanticUnit.prototype.isWord = function() {
     return this.constituents.length == 0;
 }
 
+SemanticUnit.prototype.isSentence = function() {
+    return this.constituents.length > 0;
+}
+
 SemanticUnit.prototype.getAttributes = function() {
     return this.attributes;
 };
