@@ -10,3 +10,7 @@ SemanticUnit.prototype.toString = function() {
 SemanticUnit.prototype.getConstituents = function() {
     return [];
 }
+
+SemanticUnit.prototype.getAttributes = function() {
+    return [];
+}

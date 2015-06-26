@@ -16,3 +16,12 @@ exports.testAWordShouldHaveNoConstituents = function(test) {
                      "Word should not have constituents");
     test.done();
 };
+
+exports.testAUnitHasNoAttributesToStart = function(test) {
+    test.expect(1)
+    var river = new SemanticUnit("river");
+    var attributes = river.getAttributes();
+    test.strictEqual(attributes.length, 0,
+                     "New unit should have no attributes");
+    test.done();
+};
