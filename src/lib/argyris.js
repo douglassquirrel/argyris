@@ -9,7 +9,7 @@ Word = function(text) {
 Sentence = function(text) {
     this.text = text;
     this.constituents = sentenceToWords(this.text);
-    this.attributes = [sentenceType(this.text)];
+    this.attributes = [sentenceFunction(this.text)];
 }
 
 Section = function(text) {
@@ -23,7 +23,7 @@ var sentenceToWords = function(text) {
     return words.map(function(word) { return new Word(word); });
 }
 
-var sentenceType = function(text) {
+var sentenceFunction = function(text) {
     var puncMapping = {".": "declarative",
                        "?": "interrogative",
                        "!": "exclamative"};
