@@ -46,6 +46,19 @@ exports.aSentenceShouldHaveWordsAsConstituents = function(test) {
     test.done();
 };
 
+exports.aSectionShouldHaveSentencesAsConstituents = function(test) {
+    test.expect(2);
+    var section = new Section("Who's on first? "
+                            + "No, What's on first, Who's on second. "
+                            + "etc. etc., and he throws the ball to Because.");
+    var c = section.constituents;
+    test.strictEqual(c.length, 3,
+                     "Section should have all its sentences as constituents");
+    test.strictEqual(c.every(function(u) { return u instanceof Sentence; }),
+                     true, "All section constituents should be sentences");
+    test.done();
+}
+
 exports.aWordShouldHaveNoAttributesToStart = function(test) {
     test.expect(1);
     var word = new Word("flower");
