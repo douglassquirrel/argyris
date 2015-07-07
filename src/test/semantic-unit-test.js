@@ -1,74 +1,64 @@
 #!/usr/bin/env node
 require("../lib/argyris");
 
-function newUnit(text) {
-    if (typeof(text)==='undefined') text = "testword";
-    return new SemanticUnit(text);
-};
-
-exports.testShouldRepresentAWord = function(test) {
+exports.shouldRepresentAWord = function(test) {
     test.expect(1);
-    var blue = newUnit("blue");
-    test.strictEqual(blue.toString(), "blue", "Word not represented");
+    var blue = new Word("blue");
+    test.strictEqual(blue.text, "blue", "Word not represented");
     test.done();
 };
 
-exports.testShouldRepresentASentence = function(test) {
+exports.shouldRepresentASentence = function(test) {
     test.expect(1);
-    var sentence = newUnit("How are you feeling?");
-    test.strictEqual(sentence.toString(), "How are you feeling?",
+    var sentence = new Sentence("How are you feeling?");
+    test.strictEqual(sentence.text, "How are you feeling?",
                      "Sentence not represented");
     test.done();
 };
 
-exports.testAWordShouldHaveNoConstituents = function(test) {
+exports.shouldRepresentASection = function(test) {
     test.expect(1);
-    var word = newUnit("river");
-    var constituents = word.getConstituents();
+    var section
+        = new Section("Who's on first? No, he's on second. Who's on second?");
+    test.strictEqual(section.text,
+                     "Who's on first? No, he's on second. Who's on second?",
+                     "Section not represented");
+    test.done();
+};
+
+exports.aWordShouldHaveNoConstituents = function(test) {
+    test.expect(1);
+    var word = new Word("river");
+    var constituents = word.constituents;
     test.strictEqual(constituents.length, 0,
                      "Word should not have constituents");
     test.done();
 };
 
-exports.testASentenceShouldHaveWordsAsConstituents = function(test) {
+exports.aSentenceShouldHaveWordsAsConstituents = function(test) {
     test.expect(2);
-    var sentence = newUnit("Not the comfy chair!");
-    var constituents = sentence.getConstituents();
-    test.strictEqual(constituents.length, 4,
+    var sentence = new Sentence("Not the comfy chair!");
+    var c = sentence.constituents;
+    test.strictEqual(c.length, 4,
                      "Sentence should have all its words as constituents");
-    test.strictEqual(constituents.every(function(u) { return u.isWord(); }),
+    test.strictEqual(c.every(function(u) { return u instanceof Word; }),
                      true, "All sentence constituents should be words");
     test.done();
 };
 
-exports.testShouldIdentifyWordsAndSentences = function(test) {
-    test.expect(4);
-    var word = newUnit("grass");
-    var sentence = newUnit("The grass is green.");
-    test.strictEqual(word.isWord(), true,
-                     "Words should be identified as such");
-    test.strictEqual(sentence.isWord(), false,
-                     "Sentences should not be identified as words");
-    test.strictEqual(word.isSentence(), false,
-                     "Words should not be identified as sentences");
-    test.strictEqual(sentence.isSentence(), true,
-                     "Sentences should be identified as such");
-    test.done();
-};
-
-exports.testAWordShouldHaveNoAttributesToStart = function(test) {
+exports.aWordShouldHaveNoAttributesToStart = function(test) {
     test.expect(1);
-    var word = newUnit("flower");
-    var attributes = word.getAttributes();
+    var word = new Word("flower");
+    var attributes = word.attributes;
     test.strictEqual(attributes.length, 0,
                      "New word should have no attributes");
     test.done();
 };
 
-exports.testASentenceShouldHaveATypeToStart = function(test) {
+exports.aSentenceShouldHaveATypeToStart = function(test) {
     var checkSentenceType = function(text, expectedType) {
-        var sentence = newUnit(text);
-        var attributes = sentence.getAttributes();
+        var sentence = new Sentence(text);
+        var attributes = sentence.attributes;
         test.deepEqual([expectedType], attributes,
                        "New sentence should have correct type attribute");
     };
@@ -78,17 +68,5 @@ exports.testASentenceShouldHaveATypeToStart = function(test) {
     checkSentenceType("Is this a pipe?",     "question");
     checkSentenceType("Wow, a pipe!",        "exclamation");
     checkSentenceType("lol a pipe wowz",     "statement");
-    test.done();
-};
-
-exports.testAUnitShouldAcceptNewAttributes = function(test) {
-    test.expect(1);
-    var unit = newUnit("sad");
-    unit.recordAttribute("emotion");
-    unit.recordAttribute("adjective");
-    var attributes = unit.getAttributes();
-    attributes.sort();
-    test.deepEqual(attributes, ["adjective", "emotion"],
-                   "Unit should record attributes");
     test.done();
 };
