@@ -24,9 +24,9 @@ var sentenceToWords = function(text) {
 }
 
 var sentenceType = function(text) {
-    var puncMapping = {".": "statement",
-                       "?": "question",
-                       "!": "exclamation"};
+    var puncMapping = {".": "declarative",
+                       "?": "interrogative",
+                       "!": "exclamative"};
     var punc = text.slice(-1);
-    return puncMapping[punc] || "statement";
+    return puncMapping[punc] || "declarative";
 }

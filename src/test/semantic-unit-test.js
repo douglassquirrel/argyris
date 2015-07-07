@@ -55,18 +55,18 @@ exports.aWordShouldHaveNoAttributesToStart = function(test) {
     test.done();
 };
 
-exports.aSentenceShouldHaveATypeToStart = function(test) {
-    var checkSentenceType = function(text, expectedType) {
+exports.aSentenceShouldHaveAFunctionToStart = function(test) {
+    var checkSentenceFunction = function(text, expectedFunction) {
         var sentence = new Sentence(text);
         var attributes = sentence.attributes;
-        test.deepEqual([expectedType], attributes,
-                       "New sentence should have correct type attribute");
+        test.deepEqual([expectedFunction], attributes,
+                       "New sentence should have correct function attribute");
     };
 
     test.expect(4);
-    checkSentenceType("This is not a pipe.", "statement");
-    checkSentenceType("Is this a pipe?",     "question");
-    checkSentenceType("Wow, a pipe!",        "exclamation");
-    checkSentenceType("lol a pipe wowz",     "statement");
+    checkSentenceFunction("This is not a pipe.", "declarative");
+    checkSentenceFunction("Is this a pipe?",     "interrogative");
+    checkSentenceFunction("Wow, a pipe!",        "exclamative");
+    checkSentenceFunction("lol a pipe wowz",     "declarative");
     test.done();
 };
