@@ -7,6 +7,13 @@ var numberToDigits = function(n) {
     return numberToDigits(Math.floor(n/10)).concat([n%10]);
 };
 
+var digitToLetters = function(n) {
+    return [["z","e","r","o"], ["o","n","e"], ["t","w","o"],
+            ["t","h","r","e","e"], ["f","o","u","r"], ["f","i","v","e"],
+            ["s","i","x"], ["s","e","v","e","n"], ["e","i","g","h","t"],
+            ["n","i","n","e"]][n];
+};
+
 var testBuildTree = function(test, root_info, dismantlers, expectedModel) {
     test.expect(1);
     tree = new TreeModel();
@@ -24,4 +31,18 @@ exports.shouldConstructOneLevelTree = function(test) {
     testBuildTree(test, 123, [numberToDigits],
                   {info: 123,
                    children: [{info: 1}, {info: 2}, {info: 3}]});
+};
+
+exports.shouldConstructTwoLevelTree = function(test) {
+    testBuildTree(test, 456, [numberToDigits, digitToLetters],
+                  {info: 456,
+                   children: [{info: 4,
+                               children: [{info: "f"}, {info: "o"},
+                                          {info: "u"}, {info: "r"}]},
+                              {info: 5,
+                               children: [{info: "f"}, {info: "i"},
+                                          {info: "v"}, {info: "e"}]},
+                              {info: 6,
+                               children: [{info: "s"}, {info: "i"},
+                                          {info: "x"}]}]});
 };
