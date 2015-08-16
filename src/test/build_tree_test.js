@@ -8,10 +8,11 @@ var numberToDigits = function(n) {
 };
 
 var digitToLetters = function(n) {
-    return [["z","e","r","o"], ["o","n","e"], ["t","w","o"],
-            ["t","h","r","e","e"], ["f","o","u","r"], ["f","i","v","e"],
-            ["s","i","x"], ["s","e","v","e","n"], ["e","i","g","h","t"],
-            ["n","i","n","e"]][n];
+    var letters = [["z","e","r","o"], ["o","n","e"], ["t","w","o"],
+                   ["t","h","r","e","e"], ["f","o","u","r"], ["f","i","v","e"],
+                   ["s","i","x"], ["s","e","v","e","n"], ["e","i","g","h","t"],
+                   ["n","i","n","e"]];
+    return letters[n];
 };
 
 var testBuildTree = function(test, root_info, dismantlers, expectedModel) {
