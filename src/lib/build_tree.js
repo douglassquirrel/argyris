@@ -13,6 +13,6 @@ var build_tree = function(full_info, dismantlers) {
         child_infos.forEach(build_child);
     }
     return root;
-}
+};
 
 module.exports = build_tree;
